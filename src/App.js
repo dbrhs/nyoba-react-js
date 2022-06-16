@@ -34,7 +34,7 @@ function App() {
         task.id === id ? { ...task, reminder: !task.reminder } : task
       )
     );
-    console.log(id);
+    console.log("not really", id);
   };
 
   return (
