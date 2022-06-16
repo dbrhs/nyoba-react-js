@@ -1,29 +1,51 @@
-import Header from "./Components/Header";
+import { useState } from "react";
 import Button from "./Components/Button";
 import Tasks from "./Components/Tasks";
-import { useState } from "react";
 
 function App() {
   const [meh, setTasks] = useState([
     {
       id: 1,
       name: "Doctor 1",
+      reminder: true,
     },
     {
       id: 2,
       name: "Doctor 2",
+      reminder: true,
     },
     {
       id: 3,
       name: "Doctor 3",
+      reminder: false,
     },
   ]);
+
+  // deleting task
+  const deleteTask = (id) => {
+    console.log("delete", id);
+    setTasks(meh.filter((task) => task.id !== id));
+  };
+
+  // Toggle Reminder
+  const toggleReminder = (id) => {
+    setTasks(
+      meh.map((task) =>
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      )
+    );
+    console.log(id);
+  };
+
   return (
-    <div className="Apapun">
+    <div>
       <h1>Hello?</h1>
-      <Header title={1} />
-      <Button color="steelBlue" text="Add no thanks" />
-      <Tasks tasks={meh} />
+      <Button text="add" />
+      {meh.length > 0 ? (
+        <Tasks tasks={meh} onDelete={deleteTask} onToggle={toggleReminder} />
+      ) : (
+        "There's no task left!"
+      )}
     </div>
   );
 }
