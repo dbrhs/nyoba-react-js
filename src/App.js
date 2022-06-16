@@ -1,4 +1,5 @@
 import { useState } from "react";
+import AddTask from "./Components/AddTask";
 import Button from "./Components/Button";
 import Tasks from "./Components/Tasks";
 
@@ -21,6 +22,13 @@ function App() {
     },
   ]);
 
+  // add task
+  const addTask = (task) => {
+    const id = Math.floor(Math.random() * 1000) + 1;
+    const newTask = { id, ...task };
+    setTasks([...meh, newTask]);
+  };
+
   // deleting task
   const deleteTask = (id) => {
     console.log("delete", id);
@@ -38,8 +46,9 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>Hello?</h1>
+      <AddTask onAdd={addTask} />
       <Button text="add" />
       {meh.length > 0 ? (
         <Tasks tasks={meh} onDelete={deleteTask} onToggle={toggleReminder} />
